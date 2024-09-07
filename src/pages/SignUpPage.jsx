@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextField, Button, Typography, Link, Box, Container, Snackbar, Alert } from "@mui/material";
+import { TextField, Button, Typography, Link, Box, Container } from "@mui/material";
 import axios from "axios";
 import apiEndPoints from "../service/apiConfig.js";
 import { useNavigate } from "react-router-dom";
@@ -9,14 +9,11 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [dob, setDob] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+
   const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    setError(""); // Clear previous errors
-    setSuccess(""); // Clear previous success messages
 
     try {
       const response = await axios.post(apiEndPoints.user.signup, {
@@ -27,11 +24,12 @@ function LoginPage() {
       });
 
       console.log("Signup successful:", response.data);
-      setSuccess("Signup successful. Redirecting...");
-      setTimeout(() => navigate("/dashboard"), 2000); // Redirect after 2 seconds
+      navigate("/dashboard");
     } catch (error) {
-      console.error("Signup failed:", error.response ? error.response.data : error.message);
-      setError(error.response ? error.response.data.message : "Signup failed. Please try again.");
+      console.error(
+        "Login failed:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
 
@@ -146,28 +144,10 @@ function LoginPage() {
           >
             Sign Up
           </Button>
-          <Link href="/login" variant="body2" sx={{ color: "#00AFF4" }}>
-            Already have an account? Log in
+          <Link href="#" variant="body2" sx={{ color: "#00AFF4" }}>
+            First time here? Create an account
           </Link>
         </Box>
-        <Snackbar
-          open={!!success}
-          autoHideDuration={6000}
-          onClose={() => setSuccess("")}
-        >
-          <Alert onClose={() => setSuccess("")} severity="success">
-            {success}
-          </Alert>
-        </Snackbar>
-        <Snackbar
-          open={!!error}
-          autoHideDuration={6000}
-          onClose={() => setError("")}
-        >
-          <Alert onClose={() => setError("")} severity="error">
-            {error}
-          </Alert>
-        </Snackbar>
       </Box>
     </Container>
   );
