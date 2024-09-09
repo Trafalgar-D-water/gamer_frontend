@@ -3,48 +3,52 @@ import { TextField, Button, Typography, Link, Box, Container } from "@mui/materi
 import axios from "axios";
 import apiEndPoints from "../service/apiConfig.js";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { updateSignupForm, resetSignupForm } from "../reducers/signUp";
 
-function LoginPage() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [dob, setDob] = useState("");
-
+function SignUpPage() {
+  const dispatch = useDispatch();
+  const signUpForm = useSelector((state) => state.signUp);
   const navigate = useNavigate();
 
-  const handleLogin = async (event) => {
+  const handleInputChange = (e) => {
+    dispatch(updateSignupForm({ [e.target.name]: e.target.value }));
+  }
+
+  // console.log("Signup form after dispatch:", signUpForm);
+
+  const handleSignup = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await axios.post(apiEndPoints.user.signup, {
-        username,
-        email,
-        password,
-        dob,
-      });
+      const response = await axios.post(apiEndPoints.user.signup, signUpForm)
 
       console.log("Signup successful:", response.data);
+      dispatch(resetSignupForm());
+
       navigate("/dashboard");
     } catch (error) {
       console.error(
-        "Login failed:",
+        "Signup failed:",
         error.response ? error.response.data : error.message
       );
     }
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          backgroundColor: "#36393F",
+    <Container component="main" maxWidth="xs"
+      sx={{display: "flex", alignItems: "center", justifyContent: "center",
+        backgroundColor: "#36393F",
           padding: 4,
           borderRadius: 2,
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+      }}
+    >
+      <Box mr={8}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <Typography
@@ -57,7 +61,7 @@ function LoginPage() {
         </Typography>
         <Box
           component="form"
-          onSubmit={handleLogin}
+          onSubmit={handleSignup}
           sx={{ width: "100%", mt: 1 }}
         >
           <TextField
@@ -68,8 +72,8 @@ function LoginPage() {
             id="username"
             label="Username"
             name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={signUpForm.username}
+            onChange={handleInputChange}
             sx={{
               input: { color: "#FFFFFF" },
               label: { color: "#B9BBBE" },
@@ -85,8 +89,8 @@ function LoginPage() {
             label="Email"
             type="email"
             id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={signUpForm.email}
+            onChange={handleInputChange}
             sx={{
               input: { color: "#FFFFFF" },
               label: { color: "#B9BBBE" },
@@ -102,8 +106,8 @@ function LoginPage() {
             label="Password"
             type="password"
             id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={signUpForm.password}
+            onChange={handleInputChange}
             sx={{
               input: { color: "#FFFFFF" },
               label: { color: "#B9BBBE" },
@@ -122,8 +126,8 @@ function LoginPage() {
             InputLabelProps={{
               shrink: true, // Keeps the label above the input when a value is selected
             }}
-            value={dob}
-            onChange={(e) => setDob(e.target.value)}
+            value={signUpForm.dob}
+            onChange={handleInputChange}
             sx={{
               input: { color: "#FFFFFF" },
               label: { color: "#B9BBBE" },
@@ -144,13 +148,19 @@ function LoginPage() {
           >
             Sign Up
           </Button>
-          <Link href="#" variant="body2" sx={{ color: "#00AFF4" }}>
-            First time here? Create an account
+          <Link href="/login" variant="body2" sx={{ color: "#00AFF4" }}>
+            Already have an account? Login
           </Link>
         </Box>
+      </Box>
+
+      <Box sx={{ width: "100%" }}>
+        <img srx='' />
+        <Typography>Login with this QR code</Typography>
+        <span></span>
       </Box>
     </Container>
   );
 }
 
-export default LoginPage;
+export default SignUpPage;

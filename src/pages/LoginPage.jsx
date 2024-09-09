@@ -55,29 +55,13 @@ function LoginPage() {
           color="#FFFFFF"
           sx={{ marginBottom: 2 }}
         >
-          Create a new account
+          Login to your account
         </Typography>
         <Box
           component="form"
           onSubmit={handleLogin}
           sx={{ width: "100%", mt: 1 }}
         >
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="Username"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            sx={{
-              input: { color: "#FFFFFF" },
-              label: { color: "#B9BBBE" },
-              marginBottom: 2,
-            }}
-          />
           <TextField
             variant="outlined"
             margin="normal"
@@ -112,26 +96,6 @@ function LoginPage() {
               marginBottom: 2,
             }}
           />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="dob"
-            label="Date of Birth"
-            name="dob"
-            type="date"
-            InputLabelProps={{
-              shrink: true, // Keeps the label above the input when a value is selected
-            }}
-            value={dob}
-            onChange={(e) => setDob(e.target.value)}
-            sx={{
-              input: { color: "#FFFFFF" },
-              label: { color: "#B9BBBE" },
-              marginBottom: 2,
-            }}
-          />
           <Button
             type="submit"
             fullWidth
@@ -144,10 +108,10 @@ function LoginPage() {
               marginBottom: 2,
             }}
           >
-            Sign Up
+            Login
           </Button>
-          <Link href="/login" variant="body2" sx={{ color: "#00AFF4" }}>
-            Already have an account? Log in
+          <Link href="/signup" variant="body2" sx={{ color: "#00AFF4" }}>
+            Don't have an account? Sign Up
           </Link>
         </Box>
         <Snackbar

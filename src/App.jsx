@@ -12,10 +12,10 @@ function App() {
       {/* <Sidebar /> */}
       <Routes>
         <Route path='/' element={<WelcomePage />} />
-        <Route path='login' element={<LoginPage />} />
-        <Route path='dashboard' element={<Dashboard />} />
-        <Route path='profile' element={<ProfilePage />} />
-        <Route path='signup' element={<SignUpPage />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/signup' element={<SignUpPage />} />
         <Route path='/api/user/verify-email' element={<VerifyEmail />} />
       </Routes>
     </Router>

@@ -5,7 +5,7 @@ export const WelcomePage = () => {
   // This page contains a login button
   const navigate = useNavigate();
   return (
-    <Button variant="contained" onClick={() => navigate("/Login")}>
+    <Button variant="contained" onClick={() => navigate("/signup")}>
       Login
     </Button>
   );
