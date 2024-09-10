@@ -6,10 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 function LoginPage() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [dob, setDob] = useState("");
+  const dispatch = useDispatch();
+  const userDetails = useSelector((state) => state.signUp);
+  // console.log("User details:", userDetails);
+
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
@@ -24,11 +24,11 @@ function LoginPage() {
     setSuccess(""); // Clear previous success messages
 
     try {
-      const response = await axios.post(apiEndPoints.user.login, {
-      
+      const response = await axios.post(apiEndPoints.user.signup, {
+        username,
         email,
         password,
-     
+        dob,
       });
 
       console.log("Signup successful:", response.data);
