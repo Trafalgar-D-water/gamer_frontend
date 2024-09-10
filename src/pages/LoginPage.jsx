@@ -3,15 +3,20 @@ import { TextField, Button, Typography, Link, Box, Container, Snackbar, Alert } 
 import axios from "axios";
 import apiEndPoints from "../service/apiConfig.js";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 function LoginPage() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [dob, setDob] = useState("");
+  const dispatch = useDispatch();
+  const userDetails = useSelector((state) => state.signUp);
+  // console.log("User details:", userDetails);
+
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
+
+  const handleInputChange = (e) => {
+    dispatch(updateSignupForm({ [e.target.name]: e.target.value }));
+  }
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -36,17 +41,19 @@ function LoginPage() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+    <Container component="main" maxWidth="sm"
+    sx={{ display: 'flex',
+      flexDirection: { xs: 'column', md: 'row' },
           backgroundColor: "#36393F",
           padding: 4,
           borderRadius: 2,
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",}}
+    >
+      <Box mr={8}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <Typography
@@ -71,8 +78,8 @@ function LoginPage() {
             label="Email"
             type="email"
             id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={userDetails.email}
+            onChange={handleInputChange}
             sx={{
               input: { color: "#FFFFFF" },
               label: { color: "#B9BBBE" },
@@ -88,8 +95,8 @@ function LoginPage() {
             label="Password"
             type="password"
             id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={userDetails.password}
+            onChange={handleInputChange}
             sx={{
               input: { color: "#FFFFFF" },
               label: { color: "#B9BBBE" },
@@ -132,6 +139,12 @@ function LoginPage() {
             {error}
           </Alert>
         </Snackbar>
+      </Box>
+
+      <Box sx={{textAlign:'center'}}>
+      <img src='' width='200px' height='200px' />
+      <Typography variant="h6" color='white' my={1}>Login with this QR coder</Typography>
+      <span style={{color: 'grey'}}>Scan this with mobile app to login instantly.</span>
       </Box>
     </Container>
   );

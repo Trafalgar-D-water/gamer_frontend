@@ -9,13 +9,12 @@ import { updateSignupForm, resetSignupForm } from "../reducers/signUp";
 function SignUpPage() {
   const dispatch = useDispatch();
   const signUpForm = useSelector((state) => state.signUp);
+  console.log("Signup form:", signUpForm);
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     dispatch(updateSignupForm({ [e.target.name]: e.target.value }));
   }
-
-  // console.log("Signup form after dispatch:", signUpForm);
 
   const handleSignup = async (event) => {
     event.preventDefault();
@@ -36,19 +35,16 @@ function SignUpPage() {
   };
 
   return (
-    <Container component="main" maxWidth="xs"
-      sx={{display: "flex", alignItems: "center", justifyContent: "center",
-        backgroundColor: "#36393F",
-          padding: 4,
-          borderRadius: 2,
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-      }}
-    >
-      <Box mr={8}
+    <Container component="main" maxWidth="xs">
+      <Box mt={8}
         sx={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          backgroundColor: "#36393F",
+          padding: 4,
+          borderRadius: 2,
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)"
         }}
       >
         <Typography
@@ -152,12 +148,6 @@ function SignUpPage() {
             Already have an account? Login
           </Link>
         </Box>
-      </Box>
-
-      <Box sx={{ width: "100%" }}>
-        <img srx='' />
-        <Typography>Login with this QR code</Typography>
-        <span></span>
       </Box>
     </Container>
   );
