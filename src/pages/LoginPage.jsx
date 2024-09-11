@@ -4,52 +4,54 @@ import axios from "axios";
 import apiEndPoints from "../service/apiConfig.js";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { updateloginForm, resetLoginForm } from "../reducers/login.js";
 
 function LoginPage() {
   const dispatch = useDispatch();
-  const userDetails = useSelector((state) => state.signUp);
-  // console.log("User details:", userDetails);
-
+  const userDetails = useSelector((state) => state.login);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
-    dispatch(updateSignupForm({ [e.target.name]: e.target.value }));
-  }
+    dispatch(updateloginForm({ [e.target.name]: e.target.value }));
+  };
 
   const handleLogin = async (event) => {
     event.preventDefault();
     setError(""); // Clear previous errors
     setSuccess(""); // Clear previous success messages
 
+    const { email, password } = userDetails; // Get values from Redux state
+
     try {
-      const response = await axios.post(apiEndPoints.user.signup, {
-        username,
+      const response = await axios.post(apiEndPoints.user.login, {
         email,
         password,
-        dob,
       });
 
-      console.log("Signup successful:", response.data);
-      setSuccess("Signup successful. Redirecting...");
+      console.log("login successful:", response.data);
+      setSuccess("Login successful. Redirecting...");
       setTimeout(() => navigate("/dashboard"), 2000); // Redirect after 2 seconds
     } catch (error) {
-      console.error("Signup failed:", error.response ? error.response.data : error.message);
-      setError(error.response ? error.response.data.message : "Signup failed. Please try again.");
+      console.error("Login failed:", error.response ? error.response.data : error.message);
+      setError(error.response ? error.response.data.message : "Login failed. Please try again.");
     }
   };
 
   return (
     <Container component="main" maxWidth="sm"
-    sx={{ display: 'flex',
-      flexDirection: { xs: 'column', md: 'row' },
-          backgroundColor: "#36393F",
-          padding: 4,
-          borderRadius: 2,
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",}}
+      sx={{ 
+        display: 'flex',
+        flexDirection: { xs: 'column', md: 'row' },
+        backgroundColor: "#36393F",
+        padding: 4,
+        borderRadius: 2,
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+      }}
     >
-      <Box mr={8}
+      <Box
+        mr={8}
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -141,10 +143,10 @@ function LoginPage() {
         </Snackbar>
       </Box>
 
-      <Box sx={{textAlign:'center'}}>
-      <img src='' width='200px' height='200px' />
-      <Typography variant="h6" color='white' my={1}>Login with this QR coder</Typography>
-      <span style={{color: 'grey'}}>Scan this with mobile app to login instantly.</span>
+      <Box sx={{ textAlign: 'center' }}>
+        <img src='' alt="QR Code" width='200px' height='200px' />
+        <Typography variant="h6" color='white' my={1}>Login with this QR code</Typography>
+        <span style={{ color: 'grey' }}>Scan this with a mobile app to login instantly.</span>
       </Box>
     </Container>
   );

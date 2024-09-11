@@ -31,8 +31,8 @@ const Dashboard = () => {
         variant="contained"
         sx={{
           borderRadius: "50%",
-          width: 80, // Adjust size as needed
-          height: 80, // Adjust size as needed
+          width: 100, // Adjust size as needed
+          height: 100, // Adjust size as needed
           minWidth: 0, // Remove default minWidth
           padding: 0,
           display: "flex",
@@ -43,7 +43,7 @@ const Dashboard = () => {
           color: "#FFFFFF",
         }}
       >
-        <Typography variant="button">P</Typography>{" "}
+        <Typography variant=" ">myProfile</Typography>{" "}
         {/* Profile icon or letter */}
       </Button>
     </Box>
