@@ -1,8 +1,9 @@
 import React from "react";
 import { Button, Box, Typography } from "@mui/material";
+import { createStyles, makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router-dom";
 
-const Dashboard = () => {
+export function Dashboard(){
   const navigate = useNavigate();
 
   const handleProfileClick = () => {
@@ -50,4 +51,8 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    
+  })
+)
