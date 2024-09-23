@@ -18,6 +18,9 @@ const theme = createTheme({
       secondary: '#B9BBBE',
     },
   },
+  customSpacing: {
+    pagePadding: 8*2, // 8px * 2 = 16px
+  },
   typography: {
     fontFamily: 'Segoe UI, Roboto, sans-serif', // Discord-like font
   },
