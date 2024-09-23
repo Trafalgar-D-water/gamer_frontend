@@ -23,6 +23,13 @@ const VerifyEmail = () => {
         .then((response) => {
           console.log('This is my resonse' ,response);
           
+          const jwtToken = response.data.token;
+          console.log('my token is for storage' , jwtToken);
+
+          if(jwtToken){
+            localStorage.setItem('token' , jwtToken)
+          } 
+          
           setMessage("Email verified successfully! Redirecting to dashboard...");
           setLoading(false);
           setTimeout(() => navigate("/dashboard"), 3000);

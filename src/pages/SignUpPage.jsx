@@ -7,9 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateSignupForm, resetSignupForm } from "../reducers/signUp";
 
 function SignUpPage() {
+
   const dispatch = useDispatch();
   const signUpForm = useSelector((state) => state.signUp);
-  console.log("Signup form:", signUpForm);
+  console.log("Signup form:", signUpForm); 
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -36,7 +37,7 @@ function SignUpPage() {
 
   return (
     <Container component="main" maxWidth="xs">
-      <Box mt={8}
+      <Box mt={8} 
         sx={{
           display: "flex",
           flexDirection: "column",

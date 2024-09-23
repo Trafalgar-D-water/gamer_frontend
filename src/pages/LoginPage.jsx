@@ -30,7 +30,11 @@ function LoginPage() {
         password,
       });
 
+      //setting up the jwt
+      const { token } = response.data;
+      localStorage.setItem("token", token);
       console.log("login successful:", response.data);
+      
       setSuccess("Login successful. Redirecting...");
       setTimeout(() => navigate("/dashboard"), 2000); // Redirect after 2 seconds
     } catch (error) {
